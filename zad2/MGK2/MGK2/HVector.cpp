@@ -120,7 +120,10 @@ void HVector::operator/=(float f)
 		 this->y *= f;
 		 this->z *= f;
 	 }
-	 else throw std::runtime_error("Math erorr: Cannot divide by zero\n"); 
+	 else
+	 {
+		 throw std::runtime_error("Math erorr: Cannot divide by zero\n"); 
+	 }
  }
 
  float HVector::Length() const
