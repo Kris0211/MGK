@@ -57,7 +57,7 @@ HVector HVector::operator/(float f) const
 		f = 1 / f;
 		return {x * f, y * f, z * f};
 	}
-	throw std::runtime_error("Math error: Cannot divide by zero\n");
+	throw std::logic_error("Math error: Cannot divide by zero\n");
 }
 
 void HVector::operator*=(const float f)
@@ -78,7 +78,7 @@ void HVector::operator/=(float f)
 	}
 	else 
 	{
-		throw std::runtime_error("Math erorr: Cannot divide by zero\n");
+		throw std::logic_error("Math error: Cannot divide by zero\n");
 	}
 }
 
@@ -114,7 +114,7 @@ void HVector::operator/=(float f)
 	 }
 	 else
 	 {
-		 throw std::runtime_error("Math error: Cannot divide by zero\n"); 
+		 throw std::logic_error("Math error: Cannot divide by zero\n");
 	 }
  }
 
@@ -130,7 +130,7 @@ void HVector::operator/=(float f)
  {
 	 const float n = this->Length();
 	 if (n != 0) this->Div(n);
-	 else throw std::runtime_error("Math error: Cannot divide by zero\n");
+	 else throw std::logic_error("Math error: Cannot divide by zero\n");
  }
 
  HVector HVector::Dot(const HVector& v1, const HVector& v2)
