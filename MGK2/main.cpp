@@ -1,10 +1,12 @@
 ﻿#include "HVector.h"
+#include "HMatrix4.h"
 #include <iostream>
 
 using namespace std;
 
 int main()
 {
+	/*
 	// Sprawdzamy przemiennosc dodawania wektorow
 	{
 		HVector v1(1, 2, 3);
@@ -28,7 +30,7 @@ int main()
 
 	// Znajdujemy wektor prostopadly do [4, 5, 1] i [4, 1, 3]
 	{
-		const HVector v1(4, 5, 6);
+		const HVector v1(4, 5, 1);
 		const HVector v2(4, 1, 3);
 
 		HVector perpendicular = HVector::CrossProduct(v1, v2);
@@ -37,6 +39,20 @@ int main()
 		// Normalizacja tego wektora
 		perpendicular.Normalize();
 		std::cout << "Po znormalizowaniu: " << perpendicular.ToString() << "\n";
+	}*/
+
+	//Test mnozenia macierzy
+	{
+
+		float val1[16] = {1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6, 4, 5, 6, 7};
+		float val2[16] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+		HMatrix4 mat1 = (val1);
+		mat1.PrintMatrix();
+		HMatrix4 mat2 = (val2);
+		HMatrix4 mat3 = mat1 * mat2;
+		mat3.PrintMatrix();
+		Hmatrix4 mat4 = mat2 * mat1;
+		mat4.PrintMatrix();
 	}
 
 	return 0;
