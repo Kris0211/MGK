@@ -126,7 +126,7 @@ void HMatrix4::Sub(const HMatrix4 &mat)
 	}
 }
 
-void HMatrix4::Mul(const HMatrix4 &mat)
+HMatrix4 HMatrix4::Mul(const HMatrix4 &mat)
 {
 	HMatrix4 res;
 	for (int i = 0; i < 4; i++)
@@ -187,28 +187,28 @@ void HMatrix4::Transpose()
 	memcpy(fields, tFields, sizeof(float) * 16);
 }
 
-void HMatrix4::SetTranlation(const HVector& trans)
+void HMatrix4::SetTranslation(const HVector& trans)
 {
-	fields[0][3] = trans.x;
-	fields[1][3] = trans.y;
-	fields[2][3] = trans.z;
+	this->fields[0][3] = trans.x;
+	this->fields[1][3] = trans.y;
+	this->fields[2][3] = trans.z;
 }
 
 void HMatrix4::SetScale(const HVector& scale)
 {
-	fields[0][0] = scale.x;
-	fields[1][1] = scale.y;
-	fields[2][2] = scale.z;
+	this->fields[0][0] = scale.x;
+	this->fields[1][1] = scale.y;
+	this->fields[2][2] = scale.z;
 }
 
 void HMatrix4::SetScale(const float uniformScale)
 {
-	fields[0][0] = uniformScale;
-	fields[1][1] = uniformScale;
-	fields[2][2] = uniformScale;
+	this->fields[0][0] = uniformScale;
+	this->fields[1][1] = uniformScale;
+	this->fields[2][2] = uniformScale;
 }
 
-void HMatrix4::SetRotationAxis(double angle, const HVector& axis)
+void HMatrix4::SetRotationAxis(double angle, const HVector &axis)
 {
 	HVector u = axis;
 	u.Normalize();
@@ -219,13 +219,13 @@ void HMatrix4::SetRotationAxis(double angle, const HVector& axis)
 
 	LoadIdentity();
 
-	fields[0][0] = u.x * u.x + cosAngle * (1.0f - u.x * u.x);
-	fields[0][1] = u.x * u.y * oneMinusCosAngle - sinAngle * u.z;
-	fields[0][2] = u.x * u.z * oneMinusCosAngle + sinAngle * u.y;
+	this->fields[0][0] = u.x * u.x + cosAngle * (1.0f - u.x * u.x);
+	this->fields[0][1] = u.x * u.y * oneMinusCosAngle - sinAngle * u.z;
+	this->fields[0][2] = u.x * u.z * oneMinusCosAngle + sinAngle * u.y;
 
-	fields[1][0] = u.x * u.x + cosAngle * (1.0f - u.x * u.x);
-	fields[1][1] = u.x * u.y * oneMinusCosAngle - sinAngle * u.z;
-	fields[1][2] = u.x * u.z * oneMinusCosAngle + sinAngle * u.y;
+	this->fields[1][0] = u.x * u.x + cosAngle * (1.0f - u.x * u.x);
+	this->fields[1][1] = u.x * u.y * oneMinusCosAngle - sinAngle * u.z;
+	this->fields[1][2] = u.x * u.z * oneMinusCosAngle + sinAngle * u.y;
 
 }
 
@@ -233,20 +233,20 @@ void HMatrix4::SetRotationX(double angle)
 {
 	LoadIdentity();
 
-	fields[1][1] = (float)cos(angle);
-	fields[2][1] = (float)sin(angle);
-	fields[1][2] = -fields[1][1];
-	fields[2][2] = fields[2][1];
+	this->fields[1][1] = (float)cos(angle);
+	this->fields[2][1] = (float)sin(angle);
+	this->fields[1][2] = -1 * fields[1][1];
+	this->fields[2][2] = fields[2][1];
 }
 
 void HMatrix4::SetRotationY(double angle)
 {
 	LoadIdentity();
 
-	fields[0][0] = (float)cos(angle);
-	fields[0][2] = (float)sin(angle);
-	fields[2][0] = -fields[0][2];
-	fields[2][2] = fields[0][0];
+	this->fields[0][0] = (float)cos(angle);
+	this->fields[0][2] = (float)sin(angle);
+	this->fields[2][0] = -1 * fields[0][2];
+	this->fields[2][2] = fields[0][0];
 }
 
 void HMatrix4::SetRotationZ(double angle)
@@ -255,7 +255,7 @@ void HMatrix4::SetRotationZ(double angle)
 
 	fields[0][0] = (float)cos(angle);
 	fields[1][0] = (float)sin(angle);
-	fields[0][1] = -fields[1][0];
+	fields[0][1] = -1 * fields[1][0];
 	fields[1][1] = fields[0][0];
 }
 

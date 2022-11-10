@@ -46,12 +46,17 @@ int main()
 
 		float val1[16] = {1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6, 4, 5, 6, 7};
 		float val2[16] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-		HMatrix4 mat1 = (val1);
+		HMatrix4 mat1 = HMatrix4(val1);
+		std::cout << "Macierz 1:\n";
 		mat1.PrintMatrix();
-		HMatrix4 mat2 = (val2);
+		HMatrix4 mat2 = HMatrix4(val2);
+		std::cout << "Macierz 2:\n";
+		mat2.PrintMatrix();
 		HMatrix4 mat3 = mat1 * mat2;
+		std::cout << "\nMacierz powstala w wyniku mnozenia macierzy 1 przez 2:\n";
 		mat3.PrintMatrix();
-		Hmatrix4 mat4 = mat2 * mat1;
+		HMatrix4 mat4 = mat2 * mat1;
+		std::cout << "\nMacierz powstala w wyniku mnozenia macierzy 2 przez 1:\n";
 		mat4.PrintMatrix();
 	}
 

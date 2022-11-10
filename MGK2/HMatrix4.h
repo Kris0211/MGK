@@ -6,9 +6,9 @@ class HMatrix4
 public:
 	float fields[4][4] = {{0.0f}};
 
-	HMatrix4() { }
-	HMatrix4(float fields[4][4]);
-	HMatrix4(float fields[16]);
+	HMatrix4() = default;
+	explicit HMatrix4(float fields[4][4]);
+	explicit HMatrix4(float fields[16]);
 	HMatrix4(const HMatrix4 &mat);
 	~HMatrix4() = default;
 	
@@ -23,7 +23,7 @@ public:
 	void Add(const HMatrix4& mat);
 	void Sub(const HMatrix4& mat);
 	void Mul(float f);
-	void Mul(const HMatrix4& mat);
+	HMatrix4 Mul(const HMatrix4& mat);
 
 	static HMatrix4 InvertedMatrix(const HMatrix4 &mat);
 	void Invert();
@@ -31,7 +31,7 @@ public:
 	static HMatrix4 TransposedMatrix(const HMatrix4 &mat);
 	void Transpose();
 
-	void SetTranlation(const HVector &trans);
+	void SetTranslation(const HVector &trans);
 
 	void SetScale(const HVector &scale);
 	void SetScale(float uniformScale);
