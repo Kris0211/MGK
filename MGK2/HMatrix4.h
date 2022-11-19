@@ -23,7 +23,7 @@ public:
 	void Add(const HMatrix4& mat);
 	void Sub(const HMatrix4& mat);
 	void Mul(float f);
-	HMatrix4 Mul(const HMatrix4& mat);
+	HMatrix4 Mul(const HMatrix4 &mat);
 
 	static HMatrix4 InvertedMatrix(const HMatrix4 &mat);
 	void Invert();
