@@ -162,22 +162,35 @@ float HMatrix4::Det() const
 {
 	float ret = 0;
 
-	for(int i = 0; i < 4; i++)
+	// Per each submatrix
+	for(int i = 0; i < 4 ; i++)
 	{
-		float tempAdd = 1;
-		float tempSub = 1;
+		// Get submatrix by removing i-th and 1st row
+		HMatrix3 mat3;
+		int idx = 0;
+		int idy = 0;
 
-		// Don't change j to any other letter, Kris!
-		for(int j = 0; j < 4; j++)
+		for(int k = 0; k < 4; k++)
 		{
-			tempAdd *= fields[i + j % 4][j];
-			tempSub *= fields[i + j % 4][3 - j];
+			for(int l = 0; l < 4; l++)
+			{
+				if(k == i || l == 0)
+					continue;
+
+				mat3.fields[idx][idy] = fields[k][l];
+
+				idx++;
+				if(idx > 2)
+				{
+					idx = 0;
+					idy++;
+				}
+			}
 		}
 
-		ret += tempAdd;
-		ret -= tempSub;
+		float sign = i % 2 ? 1.0f : -1.0f;
+		ret += mat3.Det() * fields[i][0] * sign;
 	}
-
 	return ret;
 }
 
@@ -210,7 +223,7 @@ void HMatrix4::Invert()
 					if(k == i || l == j)
 						continue;
 
-					mat3.fields[idx][idy] = fields[l][k];
+					mat3.fields[idx][idy] = fields[k][l];
 
 					idx++;
 					if(idx > 2)
@@ -221,21 +234,14 @@ void HMatrix4::Invert()
 				}
 			}
 
-			//std::cout << i << " " << j << "\n";
-			//mat3.PrintMatrix();
-			//std::cout << "det = " << mat3.Det() << "\n";
-
-			// Assign determinant of mat3
-			float sign = (i+j) % 2 ? -1 : 1;
-			adjMat.fields[i][j] = mat3.Det() * sign;
+			// Assign determinant of mat3 (with changed sign)
+			float sign = (i+j) % 2 ? 1.0f : -1.0f;
+			adjMat.fields[j][i] = mat3.Det() * sign;
 		}
 	}
 
 	adjMat.PrintMatrix();
-
-	double invDet = 1/Det();
-
-	//std::cout << invDet << "\n\n";
+	float invDet = 1/Det();
 	adjMat.Mul(invDet);
 	memcpy(fields, adjMat.fields, 16 * sizeof(fields[0][0]));
 }

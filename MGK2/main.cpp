@@ -45,12 +45,15 @@ int main()
 	// [ MACIERZE ] //
 	float val1[16] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 	float val2[16] = { 1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6, 4, 5, 6, 7 };
-	float val3[16] = { 1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1};
+	float val3[16] = { 2, 3, 4, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1};
 	HMatrix4 mat1 = HMatrix4(val1);
 	std::cout << "Macierz 1:\n";
 	mat1.PrintMatrix();
 	HMatrix4 mat2 = HMatrix4(val2);
 	std::cout << "Macierz 2:\n";
+	mat2.PrintMatrix();
+	HMatrix4 mat3 = HMatrix4(val3);
+	std::cout << "Macierz 3:\n";
 	mat2.PrintMatrix();
 
 	//Operacje na macierzach
@@ -73,10 +76,11 @@ int main()
 		mat1.Transpose();
 		std::cout << "\nTranspozycja macierzy 1:\n";
 		mat1.PrintMatrix();
-		
+
+		// https://www.wolframalpha.com/input?key=&i2d=true&i=%7B%7B2%2C3%2C4%2C-1%7D%2C%7B1%2C1%2C-1%2C1%7D%2C%7B1%2C-1%2C1%2C1%7D%2C%7B-1%2C1%2C1%2C1%7D%7D
 		mat1 = HMatrix4(val3);
 		mat1.Invert();
-		std::cout << "\nMacierz odwrotna do macierzy 1:\n";
+		std::cout << "\nMacierz odwrotna do macierzy 3:\n";
 		mat1.PrintMatrix();
 		
 		mat1.LoadIdentity();

@@ -15,16 +15,13 @@ float HMatrix3::Det() const
 		// Don't change j to any other letter, Kris!
 		for(int j = 0; j < 3; j++)
 		{
-			tempAdd *= fields[(i + j) % 3][j];
-			tempSub *= fields[(i + j) % 3][2 - j];
+			tempAdd *= fields[j][(i + j) % 3];
+			tempSub *= fields[2 - j][(i + j) % 3];
 		}
 
-		//std::cout << " +" << tempAdd << " -" << tempSub;
 		ret += tempAdd;
 		ret -= tempSub;
 	}
-
-	//std::cout << std::endl;
 
 	return ret;
 }
