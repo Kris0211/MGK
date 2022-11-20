@@ -45,6 +45,7 @@ int main()
 	// [ MACIERZE ] //
 	float val1[16] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 	float val2[16] = { 1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6, 4, 5, 6, 7 };
+	float val3[16] = { 1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, -1, 1, 1, 1};
 	HMatrix4 mat1 = HMatrix4(val1);
 	std::cout << "Macierz 1:\n";
 	mat1.PrintMatrix();
@@ -72,12 +73,12 @@ int main()
 		mat1.Transpose();
 		std::cout << "\nTranspozycja macierzy 1:\n";
 		mat1.PrintMatrix();
-		/*
-		mat1 = HMatrix4(val1);
+		
+		mat1 = HMatrix4(val3);
 		mat1.Invert();
 		std::cout << "\nMacierz odwrotna do macierzy 1:\n";
 		mat1.PrintMatrix();
-		*/
+		
 		mat1.LoadIdentity();
 		std::cout << "\nMacierz jednostkowa:\n";
 		mat1.PrintMatrix();

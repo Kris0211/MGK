@@ -1,7 +1,9 @@
 #include "HMatrix4.h"
 
 #include <cstring>
+#include <iostream>
 
+#include "HMatrix3.h"
 #include "HVector.h"
 
 HMatrix4::HMatrix4(float fields[4][4])
@@ -144,6 +146,7 @@ HMatrix4 HMatrix4::Mul(const HMatrix4 &mat)
 	return res;
 }
 
+
 void HMatrix4::Mul(const float f)
 {
 	for (int i = 0; i < 4; i++)
@@ -155,6 +158,29 @@ void HMatrix4::Mul(const float f)
 	}
 }
 
+float HMatrix4::Det() const
+{
+	float ret = 0;
+
+	for(int i = 0; i < 4; i++)
+	{
+		float tempAdd = 1;
+		float tempSub = 1;
+
+		// Don't change j to any other letter, Kris!
+		for(int j = 0; j < 4; j++)
+		{
+			tempAdd *= fields[i + j % 4][j];
+			tempSub *= fields[i + j % 4][3 - j];
+		}
+
+		ret += tempAdd;
+		ret -= tempSub;
+	}
+
+	return ret;
+}
+
 HMatrix4 HMatrix4::InvertedMatrix(const HMatrix4 &mat)
 {
 	HMatrix4 ret(mat);
@@ -162,9 +188,56 @@ HMatrix4 HMatrix4::InvertedMatrix(const HMatrix4 &mat)
 	return ret;
 }
 
+// https://semath.info/src/inverse-cofactor-ex4.html
 void HMatrix4::Invert()
 {
+	// Get adjugate matrix
+	HMatrix4 adjMat;
 
+	for(int i = 0; i < 4 ; i++)
+	{
+		for(int j = 0; j < 4; j++)
+		{
+			// Get submatrix by removing i-th and j-th row
+			HMatrix3 mat3;
+			int idx = 0;
+			int idy = 0;
+
+			for(int k = 0; k < 4; k++)
+			{
+				for(int l = 0; l < 4; l++)
+				{
+					if(k == i || l == j)
+						continue;
+
+					mat3.fields[idx][idy] = fields[l][k];
+
+					idx++;
+					if(idx > 2)
+					{
+						idx = 0;
+						idy++;
+					}
+				}
+			}
+
+			//std::cout << i << " " << j << "\n";
+			//mat3.PrintMatrix();
+			//std::cout << "det = " << mat3.Det() << "\n";
+
+			// Assign determinant of mat3
+			float sign = (i+j) % 2 ? -1 : 1;
+			adjMat.fields[i][j] = mat3.Det() * sign;
+		}
+	}
+
+	adjMat.PrintMatrix();
+
+	double invDet = 1/Det();
+
+	//std::cout << invDet << "\n\n";
+	adjMat.Mul(invDet);
+	memcpy(fields, adjMat.fields, 16 * sizeof(fields[0][0]));
 }
 
 HMatrix4 HMatrix4::TransposedMatrix(const HMatrix4 &mat)

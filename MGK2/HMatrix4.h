@@ -25,6 +25,8 @@ public:
 	void Mul(float f);
 	HMatrix4 Mul(const HMatrix4 &mat);
 
+	float Det() const;
+
 	static HMatrix4 InvertedMatrix(const HMatrix4 &mat);
 	void Invert();
 
