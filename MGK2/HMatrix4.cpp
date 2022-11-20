@@ -253,6 +253,11 @@ HMatrix4 HMatrix4::InvertedMatrix(const HMatrix4 &mat)
 // https://semath.info/src/inverse-cofactor-ex4.html
 void HMatrix4::Invert()
 {
+	if(Det() == 0)
+	{
+		throw std::logic_error("Matrix cannot be inverted\n");
+	}
+
 	// Get adjugate matrix
 	HMatrix4 adjMat;
 
