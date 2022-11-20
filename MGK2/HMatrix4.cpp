@@ -93,6 +93,55 @@ HMatrix4 HMatrix4::operator*(const HMatrix4 &mat)
 	return res;
 }
 
+HVector4 HMatrix4::operator*(const HVector4& vec) const
+{
+	HVector4 ret;
+
+	ret.x =	fields[0][0] * vec.x
+	      + fields[0][1] * vec.y
+	      + fields[0][2] * vec.z
+	      + fields[0][3] * vec.w;
+
+	ret.y =	fields[1][0] * vec.x
+	      + fields[1][1] * vec.y
+	      + fields[1][2] * vec.z
+	      + fields[1][3] * vec.w;
+
+	ret.z =	fields[2][0] * vec.x
+	      + fields[2][1] * vec.y
+	      + fields[2][2] * vec.z
+	      + fields[2][3] * vec.w;
+
+	ret.w =	fields[3][0] * vec.x
+	      + fields[3][1] * vec.y
+	      + fields[3][2] * vec.z
+	      + fields[3][3] * vec.w;
+
+	return ret;
+}
+
+HVector HMatrix4::operator*(const HVector& vec)
+{
+	HVector ret;
+
+	ret.x =	fields[0][0] * vec.x
+	      + fields[0][1] * vec.x
+	      + fields[0][2] * vec.x
+	      + fields[0][3] * vec.x;
+
+	ret.y =	fields[1][0] * vec.y
+	      + fields[1][1] * vec.y
+	      + fields[1][2] * vec.y
+	      + fields[1][3] * vec.y;
+
+	ret.z =	fields[2][0] * vec.z
+	      + fields[2][1] * vec.z
+	      + fields[2][2] * vec.z
+	      + fields[2][3] * vec.z;
+
+	return ret;
+}
+
 HMatrix4 HMatrix4::operator*(const float f)
 {
 	HMatrix4 matrix;
@@ -240,7 +289,6 @@ void HMatrix4::Invert()
 		}
 	}
 
-	adjMat.PrintMatrix();
 	float invDet = 1/Det();
 	adjMat.Mul(invDet);
 	memcpy(fields, adjMat.fields, 16 * sizeof(fields[0][0]));

@@ -2,6 +2,10 @@
 #include "HMatrix4.h"
 #include <iostream>
 
+#define PI 3.14159265359
+
+#include "HVector4.h"
+
 using namespace std;
 
 int main()
@@ -104,24 +108,33 @@ int main()
 		mat1.PrintMatrix();
 
 		mat1.LoadIdentity();
-		mat1.SetRotationX(30.0);
+		mat1.SetRotationX(PI/6);
 		std::cout << "\nMacierz obrotu wokol osi X o 30 stopni:\n";
 		mat1.PrintMatrix();
 
 		mat1.LoadIdentity();
-		mat1.SetRotationY(45.0);
+		mat1.SetRotationY(PI/4);
 		std::cout << "\nMacierz obrotu wokol osi Y o 45 stopni:\n";
 		mat1.PrintMatrix();
 
 		mat1.LoadIdentity();
-		mat1.SetRotationZ(60.0);
+		mat1.SetRotationZ(PI/3);
 		std::cout << "\nMacierz obrotu wokol osi Z o 60 stopni:\n";
 		mat1.PrintMatrix();
 
 		mat1.LoadIdentity();
-		mat1.SetRotationAxis(90.0, vect);
+		mat1.SetRotationAxis(PI/2, vect);
 		std::cout << "\nMacierz obrotu wokol osi:\n";
 		mat1.PrintMatrix();
+	}
+
+	//Test obrotu wektora
+	{
+		std::cout << "\n-=:OBROT WEKTORA:=-";
+		mat1.SetRotationY(PI * 0.5);
+		HVector4 vec = HVector4(1, 0, 0, 1);
+		HVector4 result = mat1 * vec;
+		std::cout << "\nWektor [1, 0, 0, 1] po obrocie o 90 stopni wokol osi Y wynosi:\n" << result.ToString();
 	}
 
 	//Test (braku) przemiennosci mnozenia macierzy

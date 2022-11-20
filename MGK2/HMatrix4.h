@@ -1,4 +1,5 @@
 #pragma once
+#include "HVector4.h"
 class HVector;
 
 class HMatrix4
@@ -19,6 +20,8 @@ public:
 	HMatrix4 operator-(const HMatrix4 &mat);
 	HMatrix4 operator*(float f);
 	HMatrix4 operator*(const HMatrix4 &mat);
+	HVector4 operator*(const HVector4 &vec) const;
+	HVector operator*(const HVector &vec);
 
 	void Add(const HMatrix4& mat);
 	void Sub(const HMatrix4& mat);
