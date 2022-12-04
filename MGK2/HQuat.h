@@ -11,7 +11,7 @@ public:
 	HVector im;
 
 	HQuat();
-	HQuat(float a, float b, float c, float d);
+	HQuat(float a, float i, float j, float k);
 	HQuat(const float f[4]);
 	HQuat(float a, const HVector& v);
 	HQuat(const HVector4& v);
@@ -19,6 +19,8 @@ public:
 
 	// Convert angle-axis rotation to quat
 	HQuat RotationQuaternion(double angle, const HVector& axis);
+
+	std::string ToString() const;
 
 	HQuat operator+(const HQuat& q) const;
 	HQuat operator-(const HQuat& q) const;

@@ -1,10 +1,11 @@
 #include "HQuat.h"
 
+#include <sstream>
 #include <stdexcept>
 
 HQuat::HQuat() {}
 
-HQuat::HQuat(float a, float b, float c, float d) : re(a), im(b, c, d) {}
+HQuat::HQuat(float a, float i, float j, float k) : re(a), im(i, j, k) {}
 
 HQuat::HQuat(const float f[4]) : re(f[0]), im(f[1], f[2], f[3]) {}
 
@@ -18,6 +19,13 @@ HQuat HQuat::RotationQuaternion(double angle, const HVector& axis)
 	normAxis.Normalize();
 	normAxis *= (float)sin(angle * 0.5);
 	return HQuat((float)cos(angle * 0.5), normAxis);
+}
+
+std::string HQuat::ToString() const
+{
+	std::stringstream ss;
+	ss << "(" << re << ", " << im.x << ", " << im.y << ", " << im.z <<  ")";
+	return ss.str();
 }
 
 HQuat HQuat::operator+(const HQuat& q) const
@@ -110,7 +118,11 @@ HVector HQuat::Im() const
 
 void HQuat::Invert()
 {
-	im *= -1;
+	if(re != 0 && im != HVector())
+	{
+		//TODO: Implement me pls
+	}
+	else std::logic_error("Cannot invert quat!");
 }
 
 HQuat HQuat::Inverted(const HQuat& q)

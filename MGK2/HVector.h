@@ -16,6 +16,9 @@ public:
 
 	HVector& operator=(const HVector &v);
 
+	bool operator==(const HVector &v);
+	bool operator!=(const HVector &v);
+
 	HVector operator+(const HVector &v) const;
 	HVector operator-(const HVector &v) const;
 	void operator+=(const HVector &v);

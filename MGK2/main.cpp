@@ -4,6 +4,7 @@
 
 #define PI 3.14159265359
 
+#include "HQuat.h"
 #include "HVector4.h"
 
 using namespace std;
@@ -45,7 +46,7 @@ int main()
 		std::cout << "Po znormalizowaniu: " << perpendicular.ToString() << "\n";
 	}*/
 
-
+/*
 	// [ MACIERZE ] //
 	float val1[16] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
 	float val2[16] = { 1, 2, 3, 4, 2, 3, 4, 5, 3, 4, 5, 6, 4, 5, 6, 7 };
@@ -148,6 +149,35 @@ int main()
 		HMatrix4 mat4 = mat2 * mat1;
 		std::cout << "\nMacierz powstala w wyniku mnozenia macierzy 2 przez macierz 1:\n";
 		mat4.PrintMatrix();
+	}
+	*/
+
+	HQuat q1(2, 1, 0, 0);
+	HQuat q2(4, 0, 1, 0);
+
+	std::cout << "Kwaternion nr 1: " << q1.ToString() << "Kwaternion nr 2: " << q2.ToString() << "\n\n";
+
+	// Sprawdzenie operacji na kwaternionach
+	{
+		std::cout << "=== SPRAWDZENIE OPERACJI NA KWATERNIONACH ==\n\n";
+
+		// Dodawanie
+		std::cout << q1.ToString() << " + " << q2.ToString() << " = " << (q1 + q2).ToString() << "\n";
+
+		// Odejmowanie
+		std::cout << q1.ToString() << " - " << q2.ToString() << " = " << (q1 - q2).ToString() << "\n";
+
+		// Mnożenie
+		std::cout << q1.ToString() << " * " << q2.ToString() << " = " << (q1 * q2).ToString() << "\n";
+
+		// Dzielenie
+		std::cout << q1.ToString() << " / " << q2.ToString() << " = " << (q1 / q2).ToString() << "\n";
+
+		// Odwrotność
+		std::cout << q1.ToString() << "^-1 = " << HQuat::Inverted(q1).ToString() << "\n";
+
+		// Sprzężenie
+		std::cout << "Sprzezenie " << q1.ToString() << " = " << HQuat::GetConjugate(q1).ToString() << "\n";
 	}
 
 	return 0;

@@ -23,6 +23,16 @@ std::string HVector::ToString() const
 
 HVector& HVector::operator=(const HVector& v) = default;
 
+bool HVector::operator==(const HVector& v)
+{
+	return x == v.x && y == v.y && z ==v.z;
+}
+
+bool HVector::operator!=(const HVector& v)
+{
+	return x != v.x || y != v.y || z != v.z;
+}
+
 HVector HVector::operator+(const HVector& v) const
 {
 	return {x + v.x, y + v.y, z + v.z};
