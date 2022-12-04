@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+class HQuat;
+
 class HVector
 {
 public:
@@ -36,6 +38,9 @@ public:
 	static float DotProduct(const HVector& v1, const HVector& v2);
 	static HVector CrossProduct(const HVector& v1, const HVector& v2);
 	static float AngleBetween(const HVector& v1, const HVector& v2);
+
+	// Rotate vector using quat
+	void RotateQuat(const HQuat& q);
 /*
 	float GetX() const;
 	float GetY() const;

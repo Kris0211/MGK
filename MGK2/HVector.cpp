@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include <sstream>
 
+#include "HQuat.h"
+
 HVector::HVector(): x(0), y(0), z(0)
 {}
 
@@ -157,6 +159,20 @@ void HVector::operator/=(float f)
 float HVector::AngleBetween(const HVector& v1, const HVector& v2) 
 {
 	return acos(DotProduct(v1, v2) / (v1.Length() * v2.Length()));
+}
+
+void HVector::RotateQuat(const HQuat& q)
+{
+	// Convert to quat
+	HQuat p(0.0f, x, y, z);
+
+	// Rotate
+	p = HQuat::Inverted(q) * p * q;
+
+	// Convert back to vector
+	x = p.im.x;
+	y = p.im.y;
+	z = p.im.z;
 }
 
 /*

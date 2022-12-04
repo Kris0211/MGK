@@ -2,10 +2,11 @@
 #include "HVector.h"
 #include "HVector4.h"
 
+
 class HQuat
 {
 public:
-	// Vector representation is most usefull ig?
+	// Vector representation is most usefull ig
 	float re;
 	HVector im;
 
@@ -15,6 +16,9 @@ public:
 	HQuat(float a, const HVector& v);
 	HQuat(const HVector4& v);
 	~HQuat() = default;
+
+	// Convert angle-axis rotation to quat
+	HQuat RotationQuaternion(double angle, const HVector& axis);
 
 	HQuat operator+(const HQuat& q) const;
 	HQuat operator-(const HQuat& q) const;
@@ -34,10 +38,12 @@ public:
 	float Re() const;
 	HVector Im() const;
 
-	HQuat Conjugate();
+	void Invert();
+	static HQuat Inverted(const HQuat& q);
+
+	void Conjugate();
 	static HQuat GetConjugate(const HQuat& q);
 
 	float Magnitude() const;
-	static HQuat GetMagnitude(const HQuat& q);
-
+	static float GetMagnitude(const HQuat& q);
 };
