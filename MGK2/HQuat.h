@@ -18,7 +18,7 @@ public:
 	~HQuat() = default;
 
 	// Convert angle-axis rotation to quat
-	HQuat RotationQuaternion(double angle, const HVector& axis);
+	static HQuat RotationQuaternion(double angle, const HVector& axis);
 
 	std::string ToString() const;
 

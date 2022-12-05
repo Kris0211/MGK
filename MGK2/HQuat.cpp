@@ -17,8 +17,8 @@ HQuat HQuat::RotationQuaternion(double angle, const HVector& axis)
 {
 	HVector normAxis = axis;
 	normAxis.Normalize();
-	normAxis *= (float)sin(angle * 0.5);
-	return HQuat((float)cos(angle * 0.5), normAxis);
+	normAxis *= static_cast<float>(sin(angle * -0.5));
+	return HQuat(static_cast<float>(cos(angle * -0.5)), normAxis);
 }
 
 std::string HQuat::ToString() const
@@ -78,7 +78,7 @@ void HQuat::operator*=(const HQuat& q)
 void HQuat::operator/=(const HQuat& q)
 {
 	float denominator = q.re * q.re + HVector::DotProduct(q.im, q.im);
-	if(denominator != 0)
+	if (denominator != 0.0f)
 	{
 		re = (re * q.re + HVector::DotProduct(im, q.im)) / denominator;
 		im = (q.im * -re + im * q.re - HVector::CrossProduct(im, q.im)) / denominator;
@@ -120,9 +120,12 @@ void HQuat::Invert()
 {
 	if(re != 0 && im != HVector())
 	{
-		//TODO: Implement me pls
+		float invMagSq = 1 / (re * re + im.x * im.x + im.y * im.y + im.z * im.z);
+		Conjugate();
+		re *= invMagSq;
+		im *= invMagSq;
 	}
-	else std::logic_error("Cannot invert quat!");
+	else throw std::logic_error("Cannot invert quat!");
 }
 
 HQuat HQuat::Inverted(const HQuat& q)

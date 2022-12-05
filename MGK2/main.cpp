@@ -2,7 +2,9 @@
 #include "HMatrix4.h"
 #include <iostream>
 
-#define PI 3.14159265359
+#define PI 3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141273724587006 
+
+#define PI_BUT_FUNNY 22/7 
 
 #include "HQuat.h"
 #include "HVector4.h"
@@ -155,7 +157,7 @@ int main()
 	HQuat q1(2, 1, 0, 0);
 	HQuat q2(4, 0, 1, 0);
 
-	std::cout << "Kwaternion nr 1: " << q1.ToString() << "Kwaternion nr 2: " << q2.ToString() << "\n\n";
+	std::cout << "Kwaternion nr 1: " << q1.ToString() << "\nKwaternion nr 2: " << q2.ToString() << "\n\n";
 
 	// Sprawdzenie operacji na kwaternionach
 	{
@@ -174,10 +176,36 @@ int main()
 		std::cout << q1.ToString() << " / " << q2.ToString() << " = " << (q1 / q2).ToString() << "\n";
 
 		// Odwrotność
-		std::cout << q1.ToString() << "^-1 = " << HQuat::Inverted(q1).ToString() << "\n";
+		std::cout << q1.ToString() << "^-1 = " << HQuat::Inverted(q2).ToString() << "\n";
 
 		// Sprzężenie
 		std::cout << "Sprzezenie " << q1.ToString() << " = " << HQuat::GetConjugate(q1).ToString() << "\n";
+
+		// Moduł
+		std::cout << "Norma " << q1.ToString() << " = " << HQuat::GetMagnitude(q1) << "\n\n";
+	}
+
+	// Obrót punktu 
+	{
+		std::cout << "=== OBROT PUNKTU ZA POMOCA KWATERNIONU ==\n\n";
+
+		HVector point(-1, -1, -1);
+		q1 = HQuat::RotationQuaternion(1.5 * PI, HVector(1.0f, 0.0f, 0.0f));
+
+		HVector rotated = point;
+		rotated.RotateQuat(q1);
+
+		std::cout << "Punkt " << point.ToString() << " po obroceniu o 270 stopni wokol osi x wynosi: " << rotated.ToString() << "\n\n";
+	}
+
+	// Przemiennosc mnozenia
+	{
+		std::cout << "=== SPRAWDZENIE PRZEMIENNOSCI MNOZENIA ==\n\n";
+		q1 = HQuat(2, 1, 0, 0);
+		HQuat q12 = q1 * q2;
+		HQuat q21 = q2 * q1;
+		std::cout << "Wynik mnozenia " << q1.ToString() << " przez" << q2.ToString() << " wynosi " << q12.ToString() << "\n";
+		std::cout << "Wynik mnozenia " << q2.ToString() << " przez" << q1.ToString() << " wynosi " << q21.ToString() << "\n";
 	}
 
 	return 0;
