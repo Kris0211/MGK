@@ -6,7 +6,9 @@
 
 #define PI_BUT_FUNNY 22/7 
 
+#include "HLine.h"
 #include "HQuat.h"
+#include "HUtils.h"
 #include "HVector4.h"
 
 using namespace std;
@@ -154,6 +156,7 @@ int main()
 	}
 	*/
 
+	/*
 	HQuat q1(2, 1, 0, 0);
 	HQuat q2(4, 0, 1, 0);
 
@@ -207,6 +210,17 @@ int main()
 		std::cout << "Wynik mnozenia " << q1.ToString() << " przez" << q2.ToString() << " wynosi " << q12.ToString() << "\n";
 		std::cout << "Wynik mnozenia " << q2.ToString() << " przez" << q1.ToString() << " wynosi " << q21.ToString() << "\n";
 	}
+	*/
 
+	// ZADANIE 1
+
+	// A)
+	{
+		HLine line1 = HLine(HVector(-2, 4, 0), HVector(3, 1, 5)); //(x+2)/3 = y-4 = z/5
+		HLine line2 = HLine(HVector(-2, 4, 0), HVector(1, -5, 3)); //x+2 = -(y-4)/5 = z/3
+		HVector result = HUtils::LineIntersect(line1, line2); //todo
+		cout << "Punkt przecięcia prostych: (" << result.ToString() <<")\n";
+	}
+	
 	return 0;
 }
