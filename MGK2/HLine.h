@@ -10,4 +10,5 @@ public:
 	HLine() {};
 	HLine(const HLine& l);
 	HLine(const HVector& s, const HVector& e);
+	std::string ToString();
 };

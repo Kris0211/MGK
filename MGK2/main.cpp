@@ -7,7 +7,10 @@
 #define PI_BUT_FUNNY 22/7 
 
 #include "HLine.h"
+#include "HPlane.h"
 #include "HQuat.h"
+#include "HSegment.h"
+#include "HSphere.h"
 #include "HUtils.h"
 #include "HVector4.h"
 
@@ -212,14 +215,59 @@ int main()
 	}
 	*/
 
-	// ZADANIE 1
+	HLine line1 = HLine({3, 1, 5}, {-2, 4, 0});
+	HLine line2 = HLine({1, -5, 3}, {-2, 4, 0});
+	HLine line3 = HLine({3, -1, 2}, {-2, 2, -1});
 
-	// A)
+	HPlane plane1 = HPlane(2, 3, 3, -8);
+	HPlane plane2 = HPlane(2, -1 , 1, -8);
+	HPlane plane3 = HPlane(4, 3, 1, 14);
+
+	HSegment segment1 = HSegment({5, 5, 4}, {10, 10, 6});
+	HSegment segment2 = HSegment({5, 5, 5}, {10, 10, 3});
+
+	HLine line4 = HLine({3, -1, -2}, {5, 3, -4});
+	HSphere sphere = HSphere({0, 0, 0}, sqrt(26));
+
+	// ZADANIE 1
 	{
-		HLine line1 = HLine(HVector(-2, 4, 0), HVector(3, 1, 5)); //(x+2)/3 = y-4 = z/5
-		HLine line2 = HLine(HVector(-2, 4, 0), HVector(1, -5, 3)); //x+2 = -(y-4)/5 = z/3
-		HVector result = HUtils::LineIntersect(line1, line2); //todo
-		cout << "Punkt przecięcia prostych: (" << result.ToString() <<")\n";
+		cout << "Zad 1. Punkt przeciecia prostych: " << HUtils::LineIntersect(line1, line2).ToString() <<"\n";
+	}
+
+	// ZADANIE 2
+	{
+		cout << "Zad 2. Kat miedzy prostymi: " << HUtils::LineAngle(line1, line2) * (180 / PI)  << " stopni\n";
+	}
+
+	// ZADANIE 3
+	{
+		cout << "Zad 3. Punkt przeciecia prostej i plaszczyzny: " << HUtils::LinePlaneIntersect(line3, plane1).ToString() << "\n";
+	}
+
+	// ZADANIE 4
+	{
+		cout << "Zad 4. Kat miedzy prosta, a plaszczyzna: " << HUtils::LinePlaneAngle(line3, plane1) * (180 / PI) << " stopni\n";
+	}
+
+	// ZADANIE 5
+	{
+		cout << "Zad 5. Przeciecie plaszczyzn: " << HUtils::PlaneIntersect(plane2, plane3).ToString() << "\n";
+	}
+
+	// ZADANIE 6
+	{
+		cout << "Zad 6. Kat miedzy plaszczyznami: " << HUtils::PlaneAngle(plane2, plane3) * (180 / PI)  << " stopnie\n";
+	}
+
+	// ZADANIE 7
+	{
+		cout << "Zad 7. Punkt przeciecia dwoch odcinkow: " << HUtils::SegmentIntersect(segment1, segment2).ToString() << "\n";	
+	}
+
+	// ZADANIE 8
+	{
+		std::vector<HVector> solutions = HUtils::LineSphereIntersect(line4, sphere);
+		cout << "Zad 8. Punkty przeciecia prostej i sfery: " << solutions[0].ToString() << ", " << solutions[1].ToString() << "\n";
 	}
 	
 	return 0;

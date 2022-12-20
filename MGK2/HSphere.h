@@ -3,7 +3,8 @@
 
 class HSphere
 {
-	HVector p;
+public:
+	HVector c;
 	float r;
 
 	HSphere();

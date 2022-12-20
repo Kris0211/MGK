@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 #include "HVector.h"
 
 class HSphere;
@@ -16,5 +18,5 @@ public:
 	static HLine PlaneIntersect(const HPlane& plane1, const HPlane& plane2);
 	static float PlaneAngle(const HPlane& plane1, const HPlane& plane2);
 	static HVector SegmentIntersect(const HSegment& seg1, const HSegment& seg2);
-	static HVector LineSphereIntersect(const HLine& line, const HSphere& sphere);
+	static std::vector<HVector> LineSphereIntersect(const HLine& line, const HSphere& sphere);
 };
