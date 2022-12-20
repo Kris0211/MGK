@@ -246,11 +246,15 @@ int main()
 
 	// ZADANIE 4
 	{
+		line3 = HLine({3, -1, 2}, {-2, 2, -1});
+		plane1 = HPlane(2, 3, 3, -8);
 		cout << "Zad 4. Kat miedzy prosta, a plaszczyzna: " << HUtils::LinePlaneAngle(line3, plane1) * (180 / PI) << " stopni\n";
 	}
 
 	// ZADANIE 5
 	{
+		plane2 = HPlane(2, -1 , 1, -8);
+		plane3 = HPlane(4, 3, 1, 14);
 		cout << "Zad 5. Przeciecie plaszczyzn: " << HUtils::PlaneIntersect(plane2, plane3).ToString() << "\n";
 	}
 

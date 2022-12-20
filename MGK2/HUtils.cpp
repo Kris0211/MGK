@@ -16,11 +16,11 @@ HVector HUtils::LineIntersect(const HLine& line1, const HLine& line2)
 
 float HUtils::LineAngle(const HLine& line1, const HLine& line2)
 {
-	HVector v1normal = line1.p;
-	HVector v2normal = line2.p;
+	//HVector v1normal = line1.p;
+	//HVector v2normal = line2.p;
 
-	v1normal.Normalize();
-	v2normal.Normalize();
+	//v1normal.Normalize();
+	//v2normal.Normalize();
 
 	return HVector::AngleBetween(line1.p, line2.p);
 }
@@ -28,9 +28,9 @@ float HUtils::LineAngle(const HLine& line1, const HLine& line2)
 HVector HUtils::LinePlaneIntersect(const HLine& line, const HPlane& plane)
 {
 	float distance = HVector::DotProduct(plane.n, plane.p) * -1;
-	float t = -(HVector::DotProduct(line.p, plane.n) + distance) /
-		HVector::DotProduct(line.v, plane.n);
-	return line.p + line.v * t;
+	float t = -(HVector::DotProduct(line.v, plane.n) + distance) /
+		HVector::DotProduct(line.p, plane.n);
+	return line.v + line.p * t;
 }
 
 float HUtils::LinePlaneAngle(const HLine& line, const HPlane& plane)
@@ -41,7 +41,7 @@ float HUtils::LinePlaneAngle(const HLine& line, const HPlane& plane)
 	//lineNormal.Normalize();
 	//planeNormal.Normalize();
 
-	return HVector::AngleBetween(line.p, plane.n);
+	return asin(HVector::DotProduct(line.p, plane.n) / (line.p.Length() * plane.n.Length()));
 }
 
 HLine HUtils::PlaneIntersect(const HPlane& plane1, const HPlane& plane2)
