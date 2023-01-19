@@ -9,6 +9,7 @@ public:
 
 	HLine() {};
 	HLine(const HLine& l);
-	HLine(const HVector& s, const HVector& e);
+	HLine(const HVector& p, const HVector& v);
+	static HLine StartToEnd(const HVector& s, const HVector& e);
 	std::string ToString();
 };

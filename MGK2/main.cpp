@@ -6,9 +6,11 @@
 
 #define PI_BUT_FUNNY 22/7 
 
+#include "HCube.h"
 #include "HLine.h"
 #include "HPlane.h"
 #include "HQuat.h"
+#include "HRTX.h"
 #include "HSegment.h"
 #include "HSphere.h"
 #include "HUtils.h"
@@ -18,6 +20,10 @@ using namespace std;
 
 int main()
 {
+	HCube Cube = HCube(1);
+
+	HRTX::Raycast(Cube, HVector(3, 0, 0), 60);
+
 	/*
 	// Sprawdzamy przemiennosc dodawania wektorow
 	{
@@ -215,7 +221,7 @@ int main()
 	}
 	*/
 
-	HLine line1 = HLine({3, 1, 5}, {-2, 4, 0});
+	/*HLine line1 = HLine({3, 1, 5}, {-2, 4, 0});
 	HLine line2 = HLine({1, -5, 3}, {-2, 4, 0});
 	HLine line3 = HLine({3, -1, 2}, {-2, 2, -1});
 
@@ -272,7 +278,7 @@ int main()
 	{
 		std::vector<HVector> solutions = HUtils::LineSphereIntersect(line4, sphere);
 		cout << "Zad 8. Punkty przeciecia prostej i sfery: " << solutions[0].ToString() << ", " << solutions[1].ToString() << "\n";
-	}
+	}*/
 	
 	return 0;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 class HQuat;
 
@@ -11,6 +12,8 @@ public:
 	HVector();
 	HVector(float x, float y, float z);
 	HVector(const HVector& v);
+	HVector(std::vector<float> v);
+	HVector(float arr[3]);
 
 	std::string ToString() const;
 
@@ -44,6 +47,7 @@ public:
 
 	// Rotate vector using quat
 	void RotateQuat(const HQuat& q);
+
 /*
 	float GetX() const;
 	float GetY() const;

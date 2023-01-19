@@ -4,10 +4,14 @@
 
 HLine::HLine(const HLine& l): p(l.p), v(l.v) {}
 
-HLine::HLine(const HVector& s, const HVector& e)
+HLine::HLine(const HVector& p, const HVector& v): p(p), v(v) {}
+
+HLine HLine::StartToEnd(const HVector& s, const HVector& e)
 {
-	this->p = s;
-	this->v = e - s;
+	HLine ret;
+	ret.p = s;
+	ret.v = e - s;
+	return ret;
 }
 
 std::string HLine::ToString()

@@ -14,6 +14,11 @@ HVector::HVector(const float x, const float y, const float z): x(x), y(y), z(z)
 HVector::HVector(const HVector& v): x(v.x), y(v.y), z(v.z)
 {}
 
+HVector::HVector(std::vector<float> v) : x(v[0]), y(v[1]), z(v[2])
+{}
+
+HVector::HVector(float arr[3]) : x(arr[0]), y(arr[1]), z(arr[2]) {}
+
 std::string HVector::ToString() const
 {
 	std::stringstream ss;

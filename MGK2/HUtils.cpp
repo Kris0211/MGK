@@ -71,7 +71,7 @@ HVector HUtils::SegmentIntersect(const HSegment& seg1, const HSegment& seg2)
 		if(HVector::DotProduct(seg1.s - seg2.s, normal2) * HVector::DotProduct(seg1.e - seg2.s, normal2) < 0
 			&& HVector::DotProduct(seg2.s - seg1.s, normal1) * HVector::DotProduct(seg2.e - seg1.s, normal1) < 0)
 		{
-			return LineIntersect(HLine(seg1.s, seg1.e), HLine(seg2.s, seg2.e));
+			return LineIntersect(HLine::StartToEnd(seg1.s, seg1.e), HLine::StartToEnd(seg2.s, seg2.e));
 		}
 	}
 }
