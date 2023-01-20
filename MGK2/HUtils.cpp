@@ -16,12 +16,6 @@ HVector HUtils::LineIntersect(const HLine& line1, const HLine& line2)
 
 float HUtils::LineAngle(const HLine& line1, const HLine& line2)
 {
-	//HVector v1normal = line1.p;
-	//HVector v2normal = line2.p;
-
-	//v1normal.Normalize();
-	//v2normal.Normalize();
-
 	return HVector::AngleBetween(line1.p, line2.p);
 }
 
@@ -35,12 +29,6 @@ HVector HUtils::LinePlaneIntersect(const HLine& line, const HPlane& plane)
 
 float HUtils::LinePlaneAngle(const HLine& line, const HPlane& plane)
 {
-	//HVector lineNormal = line.v;
-	//HVector planeNormal = plane.n;
-
-	//lineNormal.Normalize();
-	//planeNormal.Normalize();
-
 	return asin(HVector::DotProduct(line.p, plane.n) / (line.p.Length() * plane.n.Length()));
 }
 
@@ -88,4 +76,18 @@ std::vector<HVector> HUtils::LineSphereIntersect(const HLine& line, const HSpher
 	float t2 = (-b + sqrt(delta)) / (2 * a);
 
 	return { line.p + line.v * t1, line.p + line.v * t2 };
+}
+
+bool HUtils::IsRayIntersectAABBUnitBox(HLine line)
+{
+    HVector boxMin(-1, -1, -1);
+    HVector boxMax(1, 1, 1);
+
+    HVector tMin = (boxMin - line.p) / line.v;
+    HVector tMax = (boxMax - line.p) / line.v;
+    HVector t1 = HVector::Min(tMin, tMax);
+    HVector t2 = HVector::Max(tMin, tMax);
+    double tNear = std::max(std::max(t1.x, t1.y), t1.z);
+    double tFar = std::min(std::min(t2.x, t2.y), t2.z);
+    return tFar > tNear;
 }

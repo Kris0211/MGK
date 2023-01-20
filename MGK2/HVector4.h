@@ -36,3 +36,5 @@ public:
 	float Length() const;
 	void Normalize();
 };
+
+// guwno

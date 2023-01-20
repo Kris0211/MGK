@@ -8,8 +8,13 @@ class HVector;
 
 class HRTX
 {
-
 public:
+	HRTX();
 
-	static void Raycast(const HCube& Cube, const HVector& POV, double FOV); // That's all folks!
+	//void Raycast(const HCube &Cube, const HVector &CameraPos, double FOV);
+	void Draw();
+	void RayCast(HVector cameraPosition, HVector cameraDirection);
+
+private:
+	bool screen[60][60] = {{false}};
 };

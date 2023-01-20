@@ -19,4 +19,5 @@ public:
 	static float PlaneAngle(const HPlane& plane1, const HPlane& plane2);
 	static HVector SegmentIntersect(const HSegment& seg1, const HSegment& seg2);
 	static std::vector<HVector> LineSphereIntersect(const HLine& line, const HSphere& sphere);
+	static bool IsRayIntersectAABBUnitBox(HLine line);
 };

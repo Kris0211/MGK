@@ -142,4 +142,5 @@ void HVector4::operator/=(float f)
 	 if (n != 0) this->Div(n);
 	 else throw std::logic_error("Math error: Cannot divide by zero\n");
  }
+
  

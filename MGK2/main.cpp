@@ -20,9 +20,28 @@ using namespace std;
 
 int main()
 {
-	HCube Cube = HCube(1);
+	//HCube Cube = HCube(1);
 
-	HRTX::Raycast(Cube, HVector(3, 0, 0), 60);
+	HRTX raytracer;
+
+	float pitch = 0.33f;
+	float yaw = -0.22f;
+	float radius = 50.0f;
+
+	HVector camPos(1, 1, 1);
+	HVector camDir = camPos * -1.0f;
+
+	const float pitchRadians = pitch * PI / 180.0f;
+	const float yawRadians = yaw * PI / 180.0f;
+	camPos.x = radius * std::cos(pitchRadians) * std::cos(yawRadians);
+	camPos.y = radius * std::sin(pitchRadians) * std::cos(yawRadians);
+	camPos.z = radius * std::sin(yawRadians);
+	//std::system("cls");
+	camDir.Normalize();
+	raytracer.RayCast(camPos, camDir);
+	raytracer.Draw();
+
+	std::cout << "dupa debugging: " << camPos.ToString() << "\n" << camDir.ToString() << "\n";
 
 	/*
 	// Sprawdzamy przemiennosc dodawania wektorow

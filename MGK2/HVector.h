@@ -19,18 +19,26 @@ public:
 
 	HVector& operator=(const HVector &v);
 
-	bool operator==(const HVector &v);
-	bool operator!=(const HVector &v);
+	bool operator==(const HVector &v) const;
+	bool operator!=(const HVector &v) const;
 
 	HVector operator+(const HVector &v) const;
 	HVector operator-(const HVector &v) const;
 	void operator+=(const HVector &v);
 	void operator-=(const HVector &v);
 
+	HVector operator+(float f) const;
+	HVector operator-(float f) const;
+	void operator+=(float f);
+	void operator-=(float f);
+
 	HVector operator*(float f) const;
 	HVector operator/(float f) const;
 	void operator*=(float f);
 	void operator/=(float f);
+
+	HVector operator*(const HVector& v) const;
+	HVector operator/(const HVector& v) const;
 
 	void Add(const HVector &v);
 	void Sub(const HVector &v);
@@ -39,11 +47,15 @@ public:
 	
 	float Length() const;
 	void Normalize();
+	bool IsNear(const HVector& vec, float tolerance) const;
 	
 	static HVector Dot(const HVector& v1, const HVector& v2);
 	static float DotProduct(const HVector& v1, const HVector& v2);
 	static HVector CrossProduct(const HVector& v1, const HVector& v2);
 	static float AngleBetween(const HVector& v1, const HVector& v2);
+
+	static HVector Min(HVector a, HVector b);
+	static HVector Max(HVector a, HVector b);
 
 	// Rotate vector using quat
 	void RotateQuat(const HQuat& q);

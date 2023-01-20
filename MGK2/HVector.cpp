@@ -28,12 +28,12 @@ std::string HVector::ToString() const
 
 HVector& HVector::operator=(const HVector& v) = default;
 
-bool HVector::operator==(const HVector& v)
+bool HVector::operator==(const HVector& v) const
 {
 	return x == v.x && y == v.y && z ==v.z;
 }
 
-bool HVector::operator!=(const HVector& v)
+bool HVector::operator!=(const HVector& v) const
 {
 	return x != v.x || y != v.y || z != v.z;
 }
@@ -60,6 +60,31 @@ void HVector::operator-=(const HVector& v)
 	this->x -= v.x;
 	this->y -= v.y;
 	this->z -= v.z;
+}
+
+HVector HVector::operator+(float f) const
+{
+	return { x + f, y + f, z + f };
+}
+
+HVector HVector::operator-(float f) const
+{
+	return { x - f, y - f, z - f };
+}
+
+
+void HVector::operator+=(float f)
+{
+	this->x += f;
+	this->y += f;
+	this->z += f;
+}
+
+void HVector::operator-=(float f)
+{
+	this->x -= f;
+	this->y -= f;
+	this->z -= f;
 }
 
 HVector HVector::operator*(const float f) const
@@ -99,7 +124,18 @@ void HVector::operator/=(float f)
 	}
 }
 
- void HVector::Add(const HVector &v)
+HVector HVector::operator*(const HVector& v) const
+{
+	return { this->x * v.x, this->y * v.y, this->z * v.z };
+}
+
+HVector HVector::operator/(const HVector& v) const
+{
+	return { this->x / v.x, this->y / v.y, this->z / v.z };
+}
+
+
+void HVector::Add(const HVector &v)
  {
 	 this->x += v.x;
 	 this->y += v.y;
@@ -150,6 +186,11 @@ void HVector::operator/=(float f)
 	 else throw std::logic_error("Math error: Cannot divide by zero\n");
  }
 
+ bool HVector::IsNear(const HVector &vec, float tolerance) const
+ {
+	 return std::abs(this->Length() - vec.Length()) < tolerance;
+ }
+
  HVector HVector::Dot(const HVector& v1, const HVector& v2)
  {
 	 return { v1.x * v2.x,
@@ -188,6 +229,22 @@ void HVector::RotateQuat(const HQuat& q)
 	x = p.im.x;
 	y = p.im.y;
 	z = p.im.z;
+}
+
+HVector HVector::Min(HVector a, HVector b) {
+    HVector result;
+    result.x = std::min(a.x, b.x);
+    result.y = std::min(a.y, b.y);
+    result.z = std::min(a.z, b.z);
+    return result;
+}
+
+HVector HVector::Max(HVector a, HVector b) {
+    HVector result;
+    result.x = std::max(a.x, b.x);
+    result.y = std::max(a.y, b.y);
+    result.z = std::max(a.z, b.z);
+    return result;
 }
 
 /*
