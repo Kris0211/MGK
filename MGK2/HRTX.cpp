@@ -74,18 +74,13 @@ void HRTX::Draw()
 	}
 }
 
-void HRTX::RayCast(HVector cameraPosition, HVector cameraDirection) {
-	float pixelSize = 1.0f / 60.0f;
+void HRTX::RayCast(const HVector &cameraPosition, const  HVector &cameraDirection) {
+	float pixelSize = 4.0f / 60.0f;
 	float screenDistance = 1.0f;
 
 	HVector screenPosition = cameraPosition + cameraDirection * screenDistance;
 
-	HVector worldUp{ 0, 1, 0 };
-
-	if (cameraDirection.IsNear(HVector(0, 1, 0), 0.1) || cameraDirection.IsNear(HVector(0, 1, 0), 0.1)) 
-	{
-		worldUp = HVector(0, 0, 1);
-	}
+	HVector worldUp{ 0, 0, 1 };
 
 	HVector screenLeft = HVector::CrossProduct((screenPosition - cameraPosition) * -1, worldUp);
 	screenLeft.Normalize();

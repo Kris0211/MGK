@@ -40,6 +40,8 @@ public:
 	HVector operator*(const HVector& v) const;
 	HVector operator/(const HVector& v) const;
 
+	HVector operator-();
+
 	void Add(const HVector &v);
 	void Sub(const HVector &v);
 	void Mul(float f);
@@ -47,6 +49,7 @@ public:
 	
 	float Length() const;
 	void Normalize();
+	HVector Normal();
 	bool IsNear(const HVector& vec, float tolerance) const;
 	
 	static HVector Dot(const HVector& v1, const HVector& v2);

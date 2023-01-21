@@ -134,6 +134,14 @@ HVector HVector::operator/(const HVector& v) const
 	return { this->x / v.x, this->y / v.y, this->z / v.z };
 }
 
+HVector HVector::operator-()
+{
+	HVector vec;
+	vec.x = -this->x;
+	vec.y = -this->y;
+	vec.z = -this->z;
+	return vec;
+}
 
 void HVector::Add(const HVector &v)
  {
@@ -182,9 +190,16 @@ void HVector::Add(const HVector &v)
  void HVector::Normalize() 
  {
 	 const float n = this->Length();
-	 if (n != 0) this->Div(n);
+	 if (n != 0.0f) this->Div(n);
 	 else throw std::logic_error("Math error: Cannot divide by zero\n");
  }
+
+HVector HVector::Normal()
+{
+	const float len = this->Length();
+	if (len == 0.0f) return {0, 0, 0};
+	return *this / len;
+}
 
  bool HVector::IsNear(const HVector &vec, float tolerance) const
  {

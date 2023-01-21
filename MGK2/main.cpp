@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <cmath>
 #include <windows.h>
 
 #include "HQuat.h"
@@ -13,9 +14,9 @@ void redraw(float pitch, float yaw, float radius)
 {
 	HRTX raytracer;
 
-	HVector camPos(1, 1, 1);
-	HVector camDir = camPos * -1.0f;
-
+	HVector camPos(0, 0, 0);
+	//HVector camDir = camPos * -1.0f;
+	
 	const float pitchRadians = pitch * PI / 180.0f;
 	const float yawRadians = yaw * PI / 180.0f;
 
@@ -23,18 +24,20 @@ void redraw(float pitch, float yaw, float radius)
 	camPos.y = radius * std::sin(pitchRadians) * std::cos(yawRadians);
 	camPos.z = radius * std::sin(yawRadians);
 
-	camDir.Normalize();
+	const HVector camDir = (-camPos).Normal();
 
 	std::system("cls");
 	raytracer.RayCast(camPos, camDir);
 	raytracer.Draw();
+	std::cout << "dupa debugging: [" << pitch << "; " << yaw << "; " << radius << "]\ncampos: " << camPos.ToString() << "\ncamdir: " << camDir.ToString() << std::endl;
 }
 
 int main()
 {
-	float pitch = 0.33f;
-	float yaw = -0.22f;
-	constexpr float radius = 50.0f;
+	// Don't @ me.
+	float pitch = 0.0f;
+	float yaw = 0.0f;
+	float radius = 10.0f;
 
 	redraw(pitch, yaw, radius);
 
@@ -44,28 +47,52 @@ int main()
 
 	while(true)
 	{
+		bool dirty = false;
 		hstdin = GetStdHandle(STD_INPUT_HANDLE);
 		GetConsoleMode(hstdin, &mode);
 		SetConsoleMode(hstdin, ENABLE_ECHO_INPUT | ENABLE_PROCESSED_INPUT);
 		const int opt = std::cin.get();
 		if (opt == 0x61) //a
 		{
-			pitch += 0.01f;
-			redraw(pitch, yaw, radius);
+			pitch -= 5.0f;
+			dirty = true;
 		}
 		if (opt == 0x64) //d
 		{
-			pitch -= 0.01f;
-			redraw(pitch, yaw, radius);
+			pitch += 5.0f;
+			dirty = true;
 		}
 		if (opt == 0x77) //w
 		{
-			yaw += 0.01f;
-			redraw(pitch, yaw, radius);
+			yaw += 5.0f;
+			dirty = true;
 		}
 		if (opt == 0x73) //s
 		{
-			yaw -= 0.01f;
+			yaw -= 5.0f;
+			dirty = true;
+		}
+		if (opt == 0x71) //q
+		{
+			radius -= 1.0f;
+			dirty = true;
+		}
+		if (opt == 0x65) //e
+		{
+			radius += 1.0f;
+			dirty = true;
+		}
+
+		if (dirty) 
+		{
+			if (yaw >= 90.0f) yaw = 90.0f;
+			else if (yaw < -90.0f) yaw = -90.f;
+
+			if (pitch >= 360.0f) pitch -= 360.0f;
+			else if (pitch < 0.0f) pitch += 360.0f;
+
+			if (radius < 3.0f) radius = 2.0f; // when radius == 1.0f we get an exception -_-
+
 			redraw(pitch, yaw, radius);
 		}
 	}
